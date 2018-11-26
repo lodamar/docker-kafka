@@ -9,9 +9,9 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
                 "value.converter": "io.confluent.connect.avro.AvroConverter",
                 "value.converter.schema.registry.url": "http://schema-registry:8081",
                 "connection.url": "jdbc:postgresql://postgres:5432/",
-                "mode": "bulk",
+                "mode": "incrementing",
                 "table.whitelist": "ids",
-                "topic.prefix": "postgres-"
+                "topic.prefix": "postgres-connect-"
         }
 }'
 

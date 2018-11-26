@@ -1,4 +1,15 @@
 version: '2'
+services:
+  postgres:
+    image: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - "./sql:/docker-entrypoint-initdb.d"
+    environment:
+      POSTGRES_PASSWORD: root
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -40,6 +51,7 @@ version: '2'
       - zookeeper
       - kafka
       - schema-registry
+      - postgres
     ports:
       - "8083:8083"
     environment:
@@ -61,3 +73,4 @@ version: '2'
       CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      CONNECT_PLUGIN_PATH: '/usr/share/java'
